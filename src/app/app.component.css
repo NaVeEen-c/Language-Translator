@@ -1,0 +1,30 @@
+/* input[type="radio"] {
+    display: none;
+} */
+
+.suggestions{
+    position: absolute;
+    padding: 10px;
+    display: flex;
+    background-color: rgb(251, 245, 245);
+    height: 200px;
+    flex-direction: column;
+    left:30px;
+    top:30px;
+    overflow: auto;
+   
+    
+
+
+
+}
+textarea{
+    width: 80%;
+    height: 30vh;
+
+}
+.container{
+    display: grid;
+    grid-template-columns: auto auto ;
+    
+}
