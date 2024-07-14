@@ -7,6 +7,14 @@
     </select>
   </div>
   <div class="container">
+    <div >
+      
+      <textarea
+        name="userInput"
+        placeholder="enter your text"
+        formControlName="inputText"
+      ></textarea>
+    </div>
     <div style="position: relative">
       <div class="suggestions" *ngIf="suggetions.length!==0">
         <label *ngFor="let sug of suggetions">
@@ -15,13 +23,6 @@
           }}</label
         >
       </div>
-      <textarea
-        name="userInput"
-        placeholder="enter your text"
-        formControlName="inputText"
-      ></textarea>
-    </div>
-    <div>
       <textarea
         name="translatedInput"
         placeholder=" Translated text"
