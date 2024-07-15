@@ -1,24 +1,27 @@
-<form [formGroup]="Form" (ngSubmit)="FinalText()">
+<form [formGroup]="Form" (ngSubmit)="FinalText()" class="flex justify-center align-middle">
+  <div class="w-4/5">
   <div>
-    <select formControlName="language">
+    <select formControlName="language" class="bg-slate-400 rounded-sm px-2 py-1 my-2 hover:bg-slate-500 shadow-lg shadow-slate-600">
+      <option  disabled class="p-4">Language</option> 
       <option *ngFor="let language of Languages" [value]="language.value">
         {{ language.name }}
       </option>
     </select>
   </div>
-  <div class="container">
-    <div >
+  <div class="grid grid-cols-1 auto-cols-auto sm:grid-cols-2" >
+    <div>
       
       <textarea
         name="userInput"
         placeholder="enter your text"
         formControlName="inputText"
+        class="w-4/5 h-60 border-2 border-gray-500 rounded-lg bg-slate-200 p-2  focus:bg-slate-400 shadow-lg shadow-slate-600"
       ></textarea>
     </div>
-    <div style="position: relative">
-      <div class="suggestions" *ngIf="suggetions.length!==0">
-        <label *ngFor="let sug of suggetions">
-          <input type="radio" formControlName="suggest" [value]="sug" />{{
+    <div class="relative">
+      <div class="absolute p-2 flex h-40 flex-col left-5 top-10 overflow-auto" *ngIf="suggetions.length!==0">
+        <label *ngFor="let sug of suggetions" class="hover:bg-slate-50 px-2 rounded">
+          <input type="radio" formControlName="suggest" [value]="sug" class="hidden"/>{{
             sug
           }}</label
         >
@@ -27,11 +30,13 @@
         name="translatedInput"
         placeholder=" Translated text"
         formControlName="translatedText"
+        class="w-4/5 h-60 border-2 border-gray-500 rounded-lg bg-slate-200 p-2 focus:bg-slate-400 shadow-lg shadow-slate-600"
       ></textarea>
     </div>
 
    
   </div>
-  <button>submit</button>
+  <button class="bg-slate-500 px-2 py-1 my-2 rounded-sm hover:bg-sky-700 text-white shadow-lg shadow-slate-600">submit</button>
+</div>
 </form>
 <p>{{finalTranslatedText}}</p>

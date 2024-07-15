@@ -1,13 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HttpClientModule, ReactiveFormsModule, NgFor, NgIf],
+  imports: [HttpClientModule, ReactiveFormsModule, NgFor, NgIf,NgClass],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   title = 'Language-Translater';
   suggetions: string[] = [];
   finalTranslatedText = '';
+  
 
   Languages = [
     { name: 'Telugu', value: 'te' },
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit {
   Form = new FormGroup({
     inputText: new FormControl(''),
     translatedText: new FormControl(''),
-    language: new FormControl(''),
+    language: new FormControl('Language'),
     suggest: new FormControl(''),
   });
   constructor(private http: HttpClient) {}
@@ -44,6 +45,8 @@ export class AppComponent implements OnInit {
 
     this.Form.get('translatedText')?.valueChanges.subscribe((value: any) => {
       if (this.Form.get('translatedText')?.dirty === true) {
+        
+        
         let alphaString = '';
         for (let i of value?.split(' ')) {
           if (/[a-zA-Z]/.test(i)) {
@@ -51,6 +54,7 @@ export class AppComponent implements OnInit {
             break;
           }
         }
+      
         if (alphaString.length !== 0) {
           this.getTranslatedText(alphaString).subscribe((data: any) => {
             this.suggetions = data[1][0][1];
@@ -83,7 +87,7 @@ export class AppComponent implements OnInit {
   getTranslatedText(value: string | null): any {
     return this.http.get(
       `https://inputtools.google.com/request?text=${value}&itc=${
-        this.Form.value.language === '' ? 'te' : this.Form.value.language
+        this.Form.value.language === 'Language' ? 'te' : this.Form.value.language
       }-t-i0-und&num=13&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage`
     );
   }
@@ -92,4 +96,5 @@ export class AppComponent implements OnInit {
     this.finalTranslatedText = this.Form.value.translatedText || '';
     this.Form.patchValue({ translatedText: '', inputText: '' });
   }
+  
 }
